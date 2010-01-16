@@ -68,13 +68,17 @@
 					<object class="IBUIButton" id="64793540">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{57, 136}, {213, 61}}</string>
+						<string key="NSFrame">{{45, 176}, {237, 77}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="617811867"/>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">4.800000e+01</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<int key="IBUIButtonType">1</int>
 						<string type="base64-UTF8" key="IBUINormalTitle">SSdtIG9rYXkhA</string>
 						<reference key="IBUIHighlightedTitleColor" ref="841847271"/>
@@ -83,6 +87,10 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="652583877"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">YellowButton.png</string>
+						</object>
 					</object>
 					<object class="IBUIButton" id="461447094">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -106,7 +114,7 @@
 					<object class="IBUIActivityIndicatorView" id="3873712">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{57, 205}, {20, 20}}</string>
+						<string key="NSFrame">{{153, 148}, {20, 20}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -117,11 +125,8 @@
 				<string key="NSFrameSize">{320, 460}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MC43NQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<int key="NSColorSpace">2</int>
+					<bytes key="NSRGB">MC4zNzU5MTI0IDAgMAA</bytes>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -249,7 +254,7 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{226, 342}, {320, 480}}</string>
+					<string>{{226, 276}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
