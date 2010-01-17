@@ -23,10 +23,9 @@
 	
 	[[LCCoreLocationDelegate sharedInstance] setDelegate:viewController];
 
-	NSString* firstName = [[NSUserDefaults standardUserDefaults] stringForKey:@"userKey"];
-	if ([firstName length] == 0) {
-		// Hey.... we should ask the user for their info since we don't have any of it. :P
-		[viewController performSelector:@selector(runSetup:) withObject:nil];
+	NSString* gatewaynumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"gatewaynumber"];
+	if ([gatewaynumber length] == 0) {
+		[[NSUserDefaults standardUserDefaults] setObject:@"6504171034" forKey:@"gatewaynumber"];	// Default gateway numbers.
 	}
 }
 

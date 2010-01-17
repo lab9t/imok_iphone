@@ -85,6 +85,9 @@ static LCCoreLocationDelegate *sharedCLDelegate = nil;
 	
 	// Send the update to our delegate
 	NSLog(@"errorString: %@", errorString);
+	if ([delegate respondsToSelector:@selector(locationManager:didFailWithError:)]) {
+		[delegate performSelector:@selector(locationManager:didFailWithError:) withObject:manager withObject:error];
+	}
 }
 
 #pragma mark ---- singleton object methods ----

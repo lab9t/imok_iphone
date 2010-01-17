@@ -17,9 +17,10 @@
 	MessageViewController* messageViewController;
 	
 	IBOutlet UIActivityIndicatorView* spinner;
+	IBOutlet UILabel* statusField;
 }
 
--(IBAction)call911:(id)sender;
+//-(IBAction)call911:(id)sender;
 -(IBAction)iAmOkayButton:(id)sender;
 -(IBAction)runSetup:(id)sender;
 

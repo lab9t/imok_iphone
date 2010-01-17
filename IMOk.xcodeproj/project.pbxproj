@@ -26,6 +26,7 @@
 		8D1175AA10AE98B6000BBFAF /* HTTPServerInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1175A910AE98B6000BBFAF /* HTTPServerInterface.m */; };
 		8D1175EA10AE9B1F000BBFAF /* FaceIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D1175E910AE9B1F000BBFAF /* FaceIcon57x57.png */; };
 		8D1175FA10AE9D9B000BBFAF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D1175F910AE9D9B000BBFAF /* Default.png */; };
+		8DDF647E11028C6E002B8E60 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8DDF647D11028C6E002B8E60 /* Settings.bundle */; };
 		8DE5A5E910AEA539005A9FE3 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE5A5DE10AEA539005A9FE3 /* NSObject+SBJSON.m */; };
 		8DE5A5EA10AEA539005A9FE3 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE5A5E010AEA539005A9FE3 /* NSString+SBJSON.m */; };
 		8DE5A5EB10AEA539005A9FE3 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE5A5E210AEA539005A9FE3 /* SBJSON.m */; };
@@ -65,6 +66,7 @@
 		8D1175A910AE98B6000BBFAF /* HTTPServerInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPServerInterface.m; sourceTree = "<group>"; };
 		8D1175E910AE9B1F000BBFAF /* FaceIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FaceIcon57x57.png; sourceTree = "<group>"; };
 		8D1175F910AE9D9B000BBFAF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		8DDF647D11028C6E002B8E60 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8DE5A5DC10AEA539005A9FE3 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		8DE5A5DD10AEA539005A9FE3 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		8DE5A5DE10AEA539005A9FE3 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				2899E5210DE3E06400AC0155 /* IMOkViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* IMOk-Info.plist */,
+				8DDF647D11028C6E002B8E60 /* Settings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				8D1175EA10AE9B1F000BBFAF /* FaceIcon57x57.png in Resources */,
 				8D1175FA10AE9D9B000BBFAF /* Default.png in Resources */,
 				E5A3F01410AEB6860092EE9D /* YellowButton.png in Resources */,
+				8DDF647E11028C6E002B8E60 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +304,32 @@
 			};
 			name = Release;
 		};
+		8DDF652111029E65002B8E60 /* AdhocDis */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hansel Chung";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hansel Chung";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.1.2;
+			};
+			name = AdhocDis;
+		};
+		8DDF652211029E65002B8E60 /* AdhocDis */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = IMOk_Prefix.pch;
+				INFOPLIST_FILE = "IMOk-Info.plist";
+				PRODUCT_NAME = IMOk;
+			};
+			name = AdhocDis;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -317,7 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hansel Chung";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -334,6 +364,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				8DDF652211029E65002B8E60 /* AdhocDis */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -343,6 +374,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				8DDF652111029E65002B8E60 /* AdhocDis */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
