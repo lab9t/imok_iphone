@@ -7,22 +7,26 @@
 //
 
 #import "IMOkAppDelegate.h"
-#import "IMOkViewController.h"
-
+#import "IMOkNeedHelpViewController.h"
 #import "LCCoreLocationDelegate.h"
+
 
 @implementation IMOkAppDelegate
 
 @synthesize window;
-@synthesize viewController;
+@synthesize viewController, navController;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    // Override point for customization after app launch    
-    [window addSubview:viewController.view];
-    [window makeKeyAndVisible];
+- (void)applicationDidFinishLaunching:(UIApplication *)application 
+{      
+  UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:viewController];
+  self.navController = nc;
+  viewController.title = @"I'm OK!";
+  [nc release];
+  
+  [application setStatusBarHidden:NO];
+  [window addSubview:navController.view];
+  [window makeKeyAndVisible];
 	
-	[[LCCoreLocationDelegate sharedInstance] setDelegate:viewController];
-
 	NSString* gatewaynumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"gatewaynumber"];
 	if ([gatewaynumber length] == 0) {
 		[[NSUserDefaults standardUserDefaults] setObject:@"6504171034" forKey:@"gatewaynumber"];	// Default gateway numbers.
@@ -38,6 +42,5 @@
     [window release];
     [super dealloc];
 }
-
 
 @end

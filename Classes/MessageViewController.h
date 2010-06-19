@@ -8,13 +8,43 @@
 
 #import <UIKit/UIKit.h>
 
+extern const NSInteger kMaxMessageLength;
+typedef enum {
+  kMessageImOk,
+  kMessageNeedHelp,
+} MessageType;
 
-@interface MessageViewController : UIViewController {
-	IBOutlet UILabel* positionLabel;
+@interface MessageViewController : UIViewController <UITextViewDelegate>
+{
+  IBOutlet UIView *contentView;
+  
+  IBOutlet UILabel *charsRemainingLabel;
+  
+  IBOutlet UILabel *locationPromptLabel;
+  IBOutlet UIActivityIndicatorView *locationSpinner;
+  IBOutlet UIButton *locationUpdateButton;
+  IBOutlet UITextView *locationTextView;
+  
+  IBOutlet UILabel *messagePromptLabel;
+  IBOutlet UITextView *messageTextView;
+  
+  IBOutlet UIButton *sendButton;
+  IBOutlet UIView *sendingDimmer;
+  IBOutlet UIActivityIndicatorView *sendingSpinner;
+  IBOutlet UILabel *sendingStatusLabel;
+
+  MessageType messageType;
+  NSString *message;
+  
+  BOOL updatingLocation;
+  BOOL sending;
 }
 
--(IBAction)sendMessage:(id)sender;
--(IBAction)updatePosition:(id)sender;
+@property (nonatomic, assign) MessageType messageType;
+@property (nonatomic, retain) NSString *message;
 
+-(IBAction)sendMessage:(id)sender;
+-(IBAction)updateLocation:(id)sender;
+-(IBAction)updateMessage:(id)sender;
 
 @end

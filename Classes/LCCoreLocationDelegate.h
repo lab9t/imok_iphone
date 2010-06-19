@@ -9,25 +9,29 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface NSObject (CLLocationManagerDelegateDelegate)
--(void)newLocationUpdate:(CLLocation *)location;
-@end
 
-@interface LCCoreLocationDelegate : NSObject <CLLocationManagerDelegate> {
+// keys for notification user info
+extern NSString * const kLCNewLocation;
+extern NSString * const kLCLocationError;
+
+// notification identifiers
+extern NSString * const LCCoreLocationUpdateAvailable;
+extern NSString * const LCCoreLocationUpdateFailed;
+
+
+@interface LCCoreLocationDelegate : NSObject <CLLocationManagerDelegate> 
+{
 	CLLocationManager *locationManager;
-	id delegate;
 }
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic,assign) id delegate;
-
 
 - (void)locationManager:(CLLocationManager *)manager
-	didUpdateToLocation:(CLLocation *)newLocation
-		   fromLocation:(CLLocation *)oldLocation;
+	  didUpdateToLocation:(CLLocation *)newLocation
+		       fromLocation:(CLLocation *)oldLocation;
 
 - (void)locationManager:(CLLocationManager *)manager
-	   didFailWithError:(NSError *)error;
+	     didFailWithError:(NSError *)error;
 
 + (LCCoreLocationDelegate *)sharedInstance;
 

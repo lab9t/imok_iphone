@@ -8,12 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface HTTPServerInterface : NSObject {
-
+/*
+ The HTTP Server Interface looks for settings in HTTPLocalSettings.plist:
+ 
+ - SmsGatewayUrl     : URL of the SMS Gateway Server
+ - SmsGatewayNumber  : Phone Number of the SMS Gateway
+ - SmsSenderNumber   : Phone Number of the Sender's Phone
+ - AccountSid        : 34 character MD5 sum
+ - SmsId             : 34 character MD5 sum
+ - X-Twilio_Signature: Magic signature string for X-Twilio
+ */
+@interface HTTPServerInterface : NSObject 
+{
+  NSDictionary *localSettings;
 }
 
 + (HTTPServerInterface*)sharedInstance;
-- (NSString*)sendHTTPPost:(NSURL*)url withStringBody:(NSString*)body;
+
+- (NSString *)sendMessage:(NSString *)message;
+- (void)sendMessage:(NSString *)message delegate:(id)delegate;
+
+- (NSString *)sendHTTPPost:(NSURL *)url withStringBody:(NSString *)body;
+- (void)sendHTTPPost:(NSURL *)url withStringBody:(NSString *)body delegate:(id)delegate;
 
 @end

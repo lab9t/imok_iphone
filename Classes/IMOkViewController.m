@@ -32,8 +32,9 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidLoad 
+{
+  [super viewDidLoad];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -65,11 +66,12 @@
 }
 
 
-- (void)dealloc {
+- (void)dealloc 
+{
 	[ageViewController release]; ageViewController = nil;
 	[configViewController release]; configViewController = nil;
 
-    [super dealloc];
+  [super dealloc];
 }
 
 #pragma mark Actual code stuff

@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class IMOkViewController;
+@class IMOkNeedHelpViewController;
 
 @interface IMOkAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    IMOkViewController *viewController;
+  UINavigationController *navController;
+  UIWindow *window;
+  IMOkNeedHelpViewController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet IMOkViewController *viewController;
+@property (nonatomic, retain) UINavigationController *navController;
+@property (nonatomic, retain) IBOutlet IMOkNeedHelpViewController *viewController;
 
 @end
 

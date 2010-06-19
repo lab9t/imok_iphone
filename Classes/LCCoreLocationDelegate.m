@@ -9,14 +9,17 @@
 
 #import "LCCoreLocationDelegate.h"
 
-// Shorthand for getting localized strings, used in formats below for readability
-#define LocStr(key) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
-
+NSString * const kLCNewLocation = @"kLCNewLocation";
+NSString * const kLCLocationError = @"kLCLocationError";
+NSString * const LCCoreLocationUpdateAvailable = @"LCCoreLocationUpdateAvailable";
+NSString * const LCCoreLocationUpdateFailed = @"LCCoreLocationUpdateFailed";
 
 static LCCoreLocationDelegate *sharedCLDelegate = nil;
 
+
 @implementation LCCoreLocationDelegate
-@synthesize delegate, locationManager;
+
+@synthesize locationManager;
 
 - (id) init {
 	self = [super init];
@@ -31,17 +34,20 @@ static LCCoreLocationDelegate *sharedCLDelegate = nil;
 
 // Called when the location is updated
 - (void)locationManager:(CLLocationManager *)manager
-	didUpdateToLocation:(CLLocation *)newLocation
-		   fromLocation:(CLLocation *)oldLocation
+	  didUpdateToLocation:(CLLocation *)newLocation
+		       fromLocation:(CLLocation *)oldLocation
 {	
 	NSLog(@"CLLocation: %f, %f", [newLocation coordinate].latitude, [newLocation coordinate].longitude);
-	[self.delegate newLocationUpdate:newLocation];
+  
+  // Post the update to the notification center
+  [[NSNotificationCenter defaultCenter] postNotificationName:LCCoreLocationUpdateAvailable object:self 
+    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:newLocation, kLCNewLocation, nil]];
 }
 
 
 // Called when there is an error getting the location
 - (void)locationManager:(CLLocationManager *)manager
-	   didFailWithError:(NSError *)error
+	     didFailWithError:(NSError *)error
 {
 	NSMutableString *errorString = [[[NSMutableString alloc] init] autorelease];
 	
@@ -83,11 +89,11 @@ static LCCoreLocationDelegate *sharedCLDelegate = nil;
 		[errorString appendFormat:@"Description: \"%@\"\n", [error localizedDescription]];
 	}
 	
-	// Send the update to our delegate
 	NSLog(@"errorString: %@", errorString);
-	if ([delegate respondsToSelector:@selector(locationManager:didFailWithError:)]) {
-		[delegate performSelector:@selector(locationManager:didFailWithError:) withObject:manager withObject:error];
-	}
+
+  // Post the error to the notification center
+  [[NSNotificationCenter defaultCenter] postNotificationName:LCCoreLocationUpdateFailed object:self 
+    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorString, kLCLocationError, nil]];
 }
 
 #pragma mark ---- singleton object methods ----
