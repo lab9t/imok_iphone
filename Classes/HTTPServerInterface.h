@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /*
- The HTTP Server Interface looks for settings in HTTPLocalSettings.plist:
+ The HTTP Server Interface looks for settings in LocalHTTPSettings.plist:
  
  - SmsGatewayUrl     : URL of the SMS Gateway Server
  - SmsGatewayNumber  : Phone Number of the SMS Gateway

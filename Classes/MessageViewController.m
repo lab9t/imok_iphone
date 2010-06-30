@@ -6,17 +6,15 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+#import "MessageSentViewController.h"
 #import "MessageViewController.h"
 #import "LCCoreLocationDelegate.h"
-#import "HTTPServerInterface.h"
+
 
 NSInteger const kMaxMessageLength = 160;
 
 @interface MessageViewController()
 - (void)updateCharsRemaining;
-- (void)startSendingStatus;
-- (void)stopSendingStatus;
-- (void)alertSendingFailed:(NSString *)errorMessage;
 - (void)startLocationUpdateStatus;
 - (void)stopLocationUpdateStatus;
 - (void)locationDidUpdate:(CLLocation *)location;
@@ -50,6 +48,7 @@ NSInteger const kMaxMessageLength = 160;
 - (void)viewDidLoad 
 {
   [super viewDidLoad];
+
   if ( messageType == kMessageImOk )
   {
     self.title = @"I'm OK!";
@@ -197,8 +196,6 @@ NSInteger const kMaxMessageLength = 160;
   charsRemainingLabel.text = 
     [NSString stringWithFormat:@"Characters remaining: %@", 
       ( remaining < 0 ) ? @"TOO LONG" : [NSString stringWithFormat:@"%i", remaining]];
-  
-  NSLog( @"Current message: \"%@\", chars remaining = %i", message, remaining );  
 }
 
 
@@ -235,15 +232,34 @@ NSInteger const kMaxMessageLength = 160;
   [[LCCoreLocationDelegate sharedInstance].locationManager startUpdatingLocation];  
 }
 
-- (IBAction)sendMessage:(id)sender 
-{
-  [self startSendingStatus];
-  [[HTTPServerInterface sharedInstance] sendMessage:self.message delegate:self];
-}
-
 
 #pragma mark -
 #pragma mark Message Sending
+
+- (IBAction)sendMessage:(id)sender
+{
+  // do nothing -- this will be handled by the subclasses
+}
+
+- (void)messageDidSend:(NSString *)result title:(NSString *)resultTitle next:(NSURL *)next
+{
+  MessageSentViewController *vc = [[MessageSentViewController alloc] initWithNibName:@"MessageSentViewController" bundle:nil];
+  vc.titleText = resultTitle;
+  vc.messageText = result;
+  vc.redirectUrl = next;
+  
+  NSArray *controllers = [NSArray arrayWithObjects:[self.navigationController.viewControllers objectAtIndex:0], vc, nil];
+  [vc release];
+  [self.navigationController setViewControllers:controllers animated:YES];
+}
+
+- (void)sendingDidFail:(NSString *)errorMessage title:(NSString *)errorTitle
+{
+  if ( !errorTitle )
+    errorTitle = @"Sending Failed";
+  UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] autorelease];
+  [alert show];  
+}
 
 - (void)startSendingStatus
 {
@@ -271,28 +287,6 @@ NSInteger const kMaxMessageLength = 160;
     sendingDimmer.hidden = YES;
     [UIView commitAnimations];
   }
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-  NSLog( @"MessageViewController connectionDidFinishLoading" );
-  UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Message Sent" message:@"Your message has been sent. We will send you a confirmation message by SMS once we receive it." delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] autorelease];
-  [alert show];
-  [self stopSendingStatus];
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-  NSLog( @"MessageViewController connectionDidFailWithError: %@", [error localizedDescription] );
-  [self stopSendingStatus];
-  [self alertSendingFailed:[error localizedDescription]];
-}
-
-- (void)alertSendingFailed:(NSString *)errorMessage
-{
-  UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Sending Failed" message:errorMessage delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] autorelease];
-  [alert show];  
 }
 
 

@@ -10,7 +10,9 @@
 
 @class IMOkNeedHelpViewController;
 
-@interface IMOkAppDelegate : NSObject <UIApplicationDelegate> {
+@interface IMOkAppDelegate : NSObject 
+  <UIApplicationDelegate, UINavigationControllerDelegate> 
+{
   UINavigationController *navController;
   UIWindow *window;
   IMOkNeedHelpViewController *viewController;

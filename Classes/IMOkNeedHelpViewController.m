@@ -8,6 +8,8 @@
 
 #import "IMOkNeedHelpViewController.h"
 #import "MessageViewController.h"
+#import "HTTPMessageViewController.h"
+#import "SMSMessageViewController.h"
 
 
 @implementation IMOkNeedHelpViewController
@@ -36,6 +38,21 @@
                                      style: UIBarButtonItemStyleBordered
                                     target:nil
                                     action:nil]; 
+  
+  NSLog( @"Checking for SMS capability..." );
+  Class c = NSClassFromString( @"MFMessageComposeViewController" );
+  if ( c && 
+      [c respondsToSelector:@selector( canSendText )] && 
+      [c canSendText] )
+  {
+    NSLog( @"... SMS capability is available, will use SMSMessageViewController" );
+    messageViewControllerClass = [SMSMessageViewController class];
+  }
+  else
+  {
+    NSLog( @"... SMS capability is not available, will use HTTPMessageViewController" );
+    messageViewControllerClass = [HTTPMessageViewController class];
+  }
 }
 
 /*
@@ -65,15 +82,19 @@
   [needHelpButton release], needHelpButton = nil;
 }
 
+- (void)showMessageViewControllerType:(MessageType)type withTitle:(NSString *)title
+{
+  MessageViewController *vc = [[messageViewControllerClass alloc] initWithNibName:@"MessageViewController" bundle:nil];
+  vc.title = title;
+  vc.messageType = type;
+  [self.navigationController pushViewController:vc animated:YES];
+  [vc release];  
+}
+
 - (void)handleImOk:(id)sender
 {
   if ( sender == imOkButton )
-  {
-    MessageViewController *vc = [[MessageViewController alloc] initWithNibName:@"MessageViewController" bundle:nil];
-    vc.messageType = kMessageImOk;
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
-  }
+    [self showMessageViewControllerType:kMessageImOk withTitle:@"I'm OK!"];
 }
 
 - (void)handleNeedHelp:(id)sender
@@ -82,12 +103,8 @@
   {
     UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Attention" message:@"If you need immediate help, you should call your local emergency phone number, such as 911. Messages sent by this app may not reach emergency responders." delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil] autorelease];
     [alertView show];
-
-    MessageViewController *vc = [[MessageViewController alloc] initWithNibName:@"MessageViewController" bundle:nil];
-    vc.title = @"I Need Help!";
-    vc.messageType = kMessageNeedHelp;
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+    
+    [self showMessageViewControllerType:kMessageNeedHelp withTitle:@"I Need Help!"];
   }
 }
 

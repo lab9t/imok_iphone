@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 extern const NSInteger kMaxMessageLength;
 typedef enum {
   kMessageImOk,
@@ -46,5 +47,11 @@ typedef enum {
 -(IBAction)sendMessage:(id)sender;
 -(IBAction)updateLocation:(id)sender;
 -(IBAction)updateMessage:(id)sender;
+
+- (void)startSendingStatus;
+- (void)stopSendingStatus;
+- (void)messageDidSend:(NSString *)result title:(NSString *)resultTitle next:(NSURL *)next;
+- (void)sendingDidFail:(NSString *)errorMessage title:(NSString *)errorTitle;
+
 
 @end

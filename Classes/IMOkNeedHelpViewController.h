@@ -14,6 +14,8 @@
   UILabel *messageLabel;
   UIButton *imOkButton;
   UIButton *needHelpButton;
+  
+  Class messageViewControllerClass;
 }
 
 @property (nonatomic, retain, readonly) IBOutlet UILabel *messageLabel;

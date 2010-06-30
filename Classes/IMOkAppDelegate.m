@@ -16,9 +16,14 @@
 @synthesize window;
 @synthesize viewController, navController;
 
+
+#pragma mark -
+#pragma mark Application Lifecycle
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {      
   UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:viewController];
+  nc.delegate = self;
   self.navController = nc;
   viewController.title = @"I'm OK!";
   [nc release];
@@ -37,10 +42,29 @@
 	[[LCCoreLocationDelegate sharedInstance].locationManager stopUpdatingLocation];
 }
 
-- (void)dealloc {
-    [viewController release];
-    [window release];
-    [super dealloc];
+- (void)dealloc 
+{
+  [viewController release];
+  [window release];
+  [super dealloc];
 }
+
+
+#pragma mark -
+#pragma mark UINavigationController Callbacks
+
+// Hide the navigation bar for the root view controller; show it for all others
+- (void)navigationController:(UINavigationController *)nc 
+      willShowViewController:(UIViewController *)vc animated:(BOOL)animated
+{
+  [nc setNavigationBarHidden:(vc == viewController) animated:animated];
+}
+
+- (void)navigationController:(UINavigationController *)nc 
+       didShowViewController:(UIViewController *)vc animated:(BOOL)animated
+{
+  // nothing to do
+}
+
 
 @end
