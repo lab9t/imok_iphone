@@ -48,16 +48,14 @@
 
 - (void)sendMessage:(id)sender 
 {
-  // Cannot reference the class statically or else the linker will try
-  // to resolve it at runtime
+  // MFMessageComposeViewController is only available in 4.0 and later
   Class mcvcClass = NSClassFromString( @"MFMessageComposeViewController" );
   if ( mcvcClass )
   {
-    // MFMessageComposeViewController *mcvc = [[MFMessageComposeViewController alloc] init];
-    id mcvc = [[mcvcClass alloc] init];
-    [mcvc setMessageComposeDelegate:self];
-    [mcvc setBody:self.message];
-    [mcvc setRecipients:[NSArray arrayWithObject:self.smsGatewayNumber]];
+    MFMessageComposeViewController *mcvc = [[mcvcClass alloc] init];    
+    mcvc.messageComposeDelegate = self;
+    mcvc.body = self.message;
+    mcvc.recipients = [NSArray arrayWithObject:self.smsGatewayNumber];
     NSLog( @"Launching SMS Composer with gateway number: %@...", self.smsGatewayNumber );
     [self presentModalViewController:mcvc animated:YES];
     [mcvc release];
